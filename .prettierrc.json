@@ -1,0 +1,8 @@
+{
+  "overrides": [
+    {
+      "files": "*",
+      "options": { "tabWidth": 2, "printWidth": 145, "semi": true }
+    }
+  ]
+}
