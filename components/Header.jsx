@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   icon: {
-    transform: "rotate(-90deg)",
+    transform: [{ rotate: "-90deg" }],
   },
 });
