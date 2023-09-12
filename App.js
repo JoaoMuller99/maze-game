@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import "react-native-gesture-handler";
+import { Audio } from "expo-av";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Maze from "./components/Maze";
+import "react-native-gesture-handler";
 import Header from "./components/Header";
-import { levels } from "./util/levels";
+import Maze from "./components/Maze";
 import Menu from "./components/Menu";
+import { levels } from "./util/levels";
 
 export default function App() {
   const [showMenu, setShowMenu] = useState(true);
   const [level, setLevel] = useState(0);
   const [playerPosition, setPlayerPosition] = useState(levels[level].startPos);
+  const [sound, setSound] = useState(null);
+
+  async function loadSound() {
+    const { sound } = await Audio.Sound.createAsync(require("./assets/level_change.wav"));
+    setSound(sound);
+  }
+
+  async function playSound() {
+    if (sound) await sound.replayAsync();
+  }
+
+  useEffect(() => {
+    loadSound();
+  }, []);
 
   function handleToogleMenu(action) {
     if (action === "reset") handleResetGame();
@@ -20,9 +35,13 @@ export default function App() {
     setLevel(0);
   }
 
-  function handleLevelChange(newLevel) {
-    if (newLevel <= levels.length - 1) setLevel(newLevel);
+  async function handleLevelChange(newLevel) {
+    if (newLevel <= levels.length - 1) {
+      playSound();
+      setLevel(newLevel);
+    }
   }
+
   function handleResetLevel() {
     setPlayerPosition(levels[level].startPos);
   }

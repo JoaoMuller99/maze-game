@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect, useMemo } from "react";
+import { Dimensions, StyleSheet, Vibration, View } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler, State } from "react-native-gesture-handler";
-import Cell from "./Cell";
 import { levels } from "../util/levels";
+import Cell from "./Cell";
 
 const Maze = ({ playerPosition, setPlayerPosition, level, changeLevel, toogleMenu, resetPlayerPos }) => {
   const { cellWidth, cellHeight } = useMemo(() => {
@@ -30,7 +30,7 @@ const Maze = ({ playerPosition, setPlayerPosition, level, changeLevel, toogleMen
         level !== levels.length - 1 ? changeLevel(level + 1) : toogleMenu("reset");
       }
     } else {
-      // TODO: VIRACAO AQUI
+      Vibration.vibrate(200, false);
     }
   };
 
