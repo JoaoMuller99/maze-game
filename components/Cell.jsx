@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   player: {
     backgroundColor: "blue",
-    borderRadius: "50%",
+    borderRadius: 99999,
   },
 });
 
